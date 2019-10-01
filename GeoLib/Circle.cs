@@ -24,13 +24,16 @@ namespace GeoLib
             for (int i = 0; i < steps; ++i)
             {
                 float x = center.X + radius.X * (float) Math.Cos(angle);
-                float y = center.Y + radius.Y * (float) Math.Sin(angle);
-                points2D.Add(new Vector3(x, y, 0));
+                float z = center.Y + radius.Y * (float) Math.Sin(angle);
+                points2D.Add(new Vector3(x, 0, z));
                 angle += angleStep;
             }
 
             var lookAt = Matrix4x4.CreateLookAt(center, center + normal, Vector3.UnitY);
-            var circle = new Circle(center);
+			//var lookAt = Matrix.Identity;
+			//lookAt.Up = normal;
+			//lookAt *= Matrix.CreateTranslation(center);
+			var circle = new Circle(center);
             circle.AddRange(points2D.Select(pt => Vector3.Transform(pt, lookAt)));
             return circle;
         }
@@ -38,7 +41,7 @@ namespace GeoLib
         public List<Triangle> CreateCap()
         {
             var mesh = new List<Triangle>(Count);
-            for (int i = 0; i < Count - 1; ++i)
+            for (int i = 0; i < Count; ++i)
             {
                 mesh.Add(new Triangle(
                     Center,
@@ -55,7 +58,7 @@ namespace GeoLib
                 throw new InvalidOperationException("The two circles must have the same resolution");
 
             var mesh = new List<Triangle>(a.Count);
-            for (int i = 0; i < a.Count - 1; ++i)
+            for (int i = 0; i < a.Count; ++i)
             {
                 mesh.Add(new Triangle(
                     a.GetPoint(i),

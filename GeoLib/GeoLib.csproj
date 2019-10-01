@@ -36,7 +36,10 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatmullRomSpline.cs" />
     <Compile Include="Circle.cs" />
+    <Compile Include="Cylinder.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="Subdivision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triangle.cs" />

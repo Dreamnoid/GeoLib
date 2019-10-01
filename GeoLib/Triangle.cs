@@ -32,5 +32,11 @@ namespace GeoLib
         }
 
         public Triangle Reverse() => new Triangle(C, B, A);
-    }
+
+		public Triangle Transform(Matrix4x4 matrix) => new Triangle(
+			Vector3.Transform(A, matrix),
+			Vector3.Transform(B, matrix),
+			Vector3.Transform(C, matrix));
+
+	}
 }
