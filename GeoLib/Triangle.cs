@@ -16,5 +16,21 @@ namespace GeoLib
         public Vector3 Center => (A + B + C) / 3f;
 
         public bool IsVertex(Vector3 p) => ((A == p) || (B == p) || (C == p));
+
+        public Vector3 Normal
+        {
+            get
+            {
+                var v1 = A - B;
+                var v2 = B - C;
+                return Vector3.Normalize(new Vector3(
+                    (v1.Y * v2.Z) - (v1.Z * v2.Y),
+                    (v1.Z * v2.X) - (v1.X * v2.Z),
+                    (v1.X * v2.Y) - (v1.Y * v2.X)
+                ));
+            }
+        }
+
+        public Triangle Reverse() => new Triangle(C, B, A);
     }
 }
