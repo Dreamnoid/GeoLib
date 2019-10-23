@@ -32,12 +32,12 @@ namespace GeoLib
             if (faces.Count == edges.Count)
             {
                 return Barycentre(vertex, faces.Count,
-                    Average(faces.Select(f => f.Center)),
-                    Average(edges.Select(p => GetEdgeMiddle(vertex, p))));
+                    GeometryHelper.Average(faces.Select(f => f.Center)),
+                    GeometryHelper.Average(edges.Select(p => GeometryHelper.GetEdgeMiddle(vertex, p))));
             }
             else
             {
-                var avgMidEdges = Average(edges.Where(p => GetFacesForEdge(allFaces, vertex, p).Count == 1).Select(p => GetEdgeMiddle(vertex, p)));
+                var avgMidEdges = GeometryHelper.Average(edges.Where(p => GetFacesForEdge(allFaces, vertex, p).Count == 1).Select(p => GeometryHelper.GetEdgeMiddle(vertex, p)));
                 return (vertex + avgMidEdges) / 2f;
             }
         }
@@ -73,8 +73,6 @@ namespace GeoLib
             }
             return faces;
         }
-
-        private static Vector3 GetEdgeMiddle(Vector3 a, Vector3 b) => (a + b) / 2f;
 
         private static Vector3 GetEdgePoint(IEnumerable<Triangle> inFaces, Vector3 a, Vector3 b)
         {
@@ -113,18 +111,5 @@ namespace GeoLib
         {
             return faces.Where(f => f.IsVertex(p)).ToList();
         }
-
-        private static Vector3 Average(IEnumerable<Vector3> points)
-        {
-            var result = Vector3.Zero;
-            var cnt = 0;
-            foreach (var pt in points)
-            {
-                cnt++;
-                result += pt;
-            }
-            return result / cnt;
-        }
-
     }
 }
