@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace GeoLib
@@ -39,6 +40,17 @@ namespace GeoLib
                     Vector3.Transform(vertices[i].Position, matrix),
                     Vector3.TransformNormal(vertices[i].Normal, matrix),
                     vertices[i].UV);
+            }
+        }
+
+        public static void UVMap(Vertex[] vertices, Func<Vector3, Vector3, Vector2> mapper)
+        {
+            for (int i = 0; i < vertices.Length; ++i)
+            {
+                vertices[i] = new Vertex(
+                    vertices[i].Position,
+                    vertices[i].Normal,
+                    mapper(vertices[i].Position, vertices[i].Normal));
             }
         }
     }
