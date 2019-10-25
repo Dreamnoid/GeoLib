@@ -53,5 +53,25 @@ namespace GeoLib
                     mapper(vertices[i].Position, vertices[i].Normal));
             }
         }
+
+        public static List<Triangle> ExtrudePoints(Vector3[] points, Vector3 vector)
+        {
+            var mesh = new List<Triangle>(points.Length * 2);
+            for(int i = 0; i < points.Length; ++i)
+            {
+                int ip1 = (i + 1) % points.Length;
+
+                mesh.Add(new Triangle(
+                    points[i],
+                    points[i] + vector,
+                    points[ip1]));
+
+                mesh.Add(new Triangle(
+                    points[i] + vector,
+                    points[ip1] + vector,
+                    points[ip1]));
+            }
+            return mesh;
+        }
     }
 }
