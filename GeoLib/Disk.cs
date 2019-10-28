@@ -7,11 +7,7 @@ namespace GeoLib
     {
         public static Vector3[] CreatePoints(Vector3 center, Vector3 direction, float radius, int steps)
         {
-            // Quaternion : from vector1 to vector2 (if both normalized)
-            var quaternion = new Quaternion(Vector3.Cross(Vector3.UnitY, direction),
-                (float) Math.Sqrt(1) + Vector3.Dot(Vector3.UnitY, direction)); // 1 = unitY.Length() * direction.Length()
-            quaternion = Quaternion.Normalize(quaternion);
-
+            var quaternion = Quaternion.Normalize(MathHelper.FromVectors(Vector3.UnitY, direction));
             var side = Vector3.Transform(Vector3.UnitX, quaternion);
             var up = Vector3.Transform(Vector3.UnitZ, quaternion);
 

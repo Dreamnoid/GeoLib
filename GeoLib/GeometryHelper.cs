@@ -73,5 +73,28 @@ namespace GeoLib
             }
             return mesh;
         }
+
+        public static List<Triangle> ExtrudePoints(Vector3[] source, Vector3[] target)
+        {
+            if(source.Length != target.Length)
+                throw new InvalidOperationException("ExtrudePoints: the two shapes must have the same number of points");
+
+            var mesh = new List<Triangle>(source.Length * 2);
+            for (int i = 0; i < source.Length; ++i)
+            {
+                int ip1 = (i + 1) % source.Length;
+
+                mesh.Add(new Triangle(
+                    source[i],
+                    target[i] ,
+                    source[ip1]));
+
+                mesh.Add(new Triangle(
+                    target[i],
+                    target[ip1],
+                    source[ip1]));
+            }
+            return mesh;
+        }
     }
 }
