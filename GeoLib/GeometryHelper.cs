@@ -43,6 +43,17 @@ namespace GeoLib
             }
         }
 
+        public static void ReverseNormals(Vertex[] vertices)
+        {
+            for (int i = 0; i < vertices.Length; ++i)
+            {
+                vertices[i] = new Vertex(
+                    vertices[i].Position,
+                    -vertices[i].Normal,
+                    vertices[i].UV);
+            }
+        }
+
         public static void UVMap(Vertex[] vertices, Func<Vector3, Vector3, Vector2> mapper)
         {
             for (int i = 0; i < vertices.Length; ++i)
