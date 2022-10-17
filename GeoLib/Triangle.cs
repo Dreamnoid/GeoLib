@@ -38,5 +38,5 @@ namespace GeoLib
 			Vector3.Transform(B, matrix),
 			Vector3.Transform(C, matrix));
 
-	}
+    }
 }

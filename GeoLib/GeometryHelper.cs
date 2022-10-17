@@ -107,5 +107,36 @@ namespace GeoLib
             }
             return mesh;
         }
+
+        public static Vector3 GetTangent(Vector3 normal)
+        {
+            Vector3 tangent;
+            if ((Math.Abs(normal.X) < Math.Abs(normal.Y)) && (Math.Abs(normal.X) < Math.Abs(normal.Z)))
+            {
+                tangent = Vector3.UnitX;
+            }
+            else if (Math.Abs(normal.Y) < Math.Abs(normal.Z))
+            {
+                tangent = Vector3.UnitY;
+            }
+            else
+            {
+                tangent = Vector3.UnitZ;
+            }
+
+            tangent -= normal * Vector3.Dot(normal, tangent);
+            return Vector3.Normalize(tangent);
+        }
+
+        public static Vector3 GetBitangent(Vector3 normal, Vector3 tangent) => Vector3.Cross(normal, tangent);
+
+        public static float GetTriangle2DArea(Vector2 a, Vector2 b, Vector2 c)
+        {
+            var v0 = a - c;
+            var v1 = b - c;
+            return (v0.X * v1.Y - v0.Y * v1.X) * 0.5f;
+        }
+
+        // https://github.com/jpcy/xatlas/blob/master/xatlas.cpp
     }
 }
